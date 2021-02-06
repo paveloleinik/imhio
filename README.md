@@ -88,9 +88,7 @@ web.yaml – Playbook для настроки Web сервера в AWS, вкл�
 - Вы полнить команды для playbook Terraform:
   :--- 
   `terraform init` 
-  :--- 
   `terraform plan`
-  :--- 
   `terraform apply`
   
 ###Ansible
