@@ -19,6 +19,7 @@
 - Route table
 - EIN
 - EC2 instance
+- NAT Gateway
 
 
 # Ansible
