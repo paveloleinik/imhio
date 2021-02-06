@@ -91,6 +91,36 @@ web.yaml – Playbook для настроки Web сервера в AWS, вкл�
 
 
 Вы полнить команды для playbook Ansible:
+- Перед запуском плэйбуков необходимо сменить публичный в hosts/all.ini IP для web сервера, а так же подставить тот же ip в ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ec2-user@18.216.240.65 -i ./test.pem"' на свой.
+```Yaml
+[web_hosts]
+web ansible_host=18.216.240.65
+
+[db_hosts]
+db ansible_host=10.0.2.200
+
+[db_hosts:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ec2-user@18.216.240.65 -i ./test.pem"'
+```
+- заменить публичный IP в файле ssh.cfg для host Web и в параметре ProxyCommand, так же заменить ключ test.pem на свой
+```Yaml
+Host web
+  Hostname 18.216.240.65
+  StrictHostKeyChecking no
+  User ec2-user
+  IdentityFile ./test2.pem
+  ControlMaster auto
+  ControlPersist 1m
+  ControlMaster auto
+  ControlPath ~/.ssh/ansible-%r@%h:%p
+
+Host 10.0.2.*
+  StrictHostKeyChecking no
+  User ec2-user
+  ProxyCommand ssh -W %h:%p ec2-user@18.216.240.65
+  IdentityFile ./test.pem
+ ``` 
+
 - Для настройки DB хоста необходимо выполнить playbook db.yaml в каталоге Ansible ansible-playbook db.yaml
 - Необходимо поменять в файле hosts/all.ini пуличный IP адрес Web хоста созданный в AWS при развертывание через Terraform 
 - Для настройки Web хоста необходимо выполнить playbook web.yaml в каталоге Ansible ansible-playbook web.yaml
