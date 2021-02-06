@@ -4,7 +4,6 @@
 Проект Terraform находиться в каталоге Terraform
 Проект Ansible находиться в папке Ansible
 
-# imhio
 # Terraform
 Инфраструктура развёрнута в облаке AWS. 
 Структура проекта:
