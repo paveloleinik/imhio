@@ -86,10 +86,13 @@ web.yaml – Playbook для настроки Web сервера в AWS, вкл�
 
 - Регион по умолчанию us-east-2 , можно поменять в переменной region
 - Вы полнить команды для playbook Terraform:
-  | terraform init |
-  | terraform plan |
-  | terraform apply |
-
+  :--- 
+  `terraform init` 
+  :--- 
+  `terraform plan`
+  :--- 
+  `terraform apply`
+  
 ###Ansible
 Вы полнить команды для playbook Ansible:
 - Перед запуском плэйбуков необходимо сменить публичный в hosts/all.ini IP для web сервера, а так же подставить тот же ip в ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ec2-user@18.216.240.65 -i ./test.pem"' на свой.
