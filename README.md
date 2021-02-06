@@ -86,9 +86,9 @@ web.yaml – Playbook для настроки Web сервера в AWS, вкл�
 
 - Регион по умолчанию us-east-2 , можно поменять в переменной region
 - Вы полнить команды для playbook Terraform:
-  -- terraform init
-  -- terraform plan
-  -- terraform apply
+  | terraform init |
+  | terraform plan |
+  | terraform apply |
 
 ###Ansible
 Вы полнить команды для playbook Ansible:
