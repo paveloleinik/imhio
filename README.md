@@ -38,8 +38,8 @@ key_name– указать название key-pair, созданный зар�
 -	ssh.cfg
 -	web.yaml 
 ansible.cfg – конфигурационный файл ansible . Добавлена секция для подключения файла ssh.cfg
-[ssh_connection]
-ssh_args = -F ./ssh.cfg
+-[ssh_connection]
+-ssh_args = -F ./ssh.cfg
  
 db.yaml – Playbook для настройки DB instance в AWS, включает в себя роли.
 - firewall 
