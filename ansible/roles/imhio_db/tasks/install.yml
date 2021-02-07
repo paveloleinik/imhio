@@ -1,0 +1,34 @@
+# roles/mariadb/tasks/install.yml
+---
+
+- name: Add official MariaDB repository
+  template:
+    src: etc_yum.repos.d_mariadb.repo.j2
+    dest: /etc/yum.repos.d/MariaDB.repo
+  tags: mariadb
+
+- name: Create daemon group with specified gid
+  group:
+    name: "{{ mariadb_system_user.name }}"
+    gid: "{{ mariadb_system_user.gid }}"
+    system: true
+    state: present
+  tags: mariadb
+
+- name: Create daemon user with specified uid
+  user:
+    name: "{{ mariadb_system_user.name }}"
+    uid: "{{ mariadb_system_user.uid }}"
+    system: true
+    group: "{{ mariadb_system_user.name }}"
+    comment: "{{ mariadb_system_user.comment }}"
+    home: "{{ mariadb_system_user.home }}"
+    create_home: false
+    shell: "{{ mariadb_system_user.shell }}"
+  tags: mariadb
+
+- name: Install packages
+  package:
+    name: "{{ mariadb_packages }}"
+    state: installed
+  tags: mariadb

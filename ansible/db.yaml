@@ -1,0 +1,8 @@
+- name: Prepare DB host
+  hosts: db
+  become: yes
+  roles:
+    - firewall
+    - prepare_db
+    - imhio_db
+  diff: yes

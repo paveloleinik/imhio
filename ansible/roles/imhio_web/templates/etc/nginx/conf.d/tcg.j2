@@ -1,0 +1,13 @@
+server {
+    listen {{ nginx_tcg_listen_port }};
+    server_name {{ nginx_tcg_server_name }};
+    access_log /var/log/nginx/tcg.log;
+    error_log /var/log/nginx/tcg.log;
+
+location / {
+    proxy_pass http://{{ nginx_proxy_pass_server }}:{{ nginx_proxy_pass_port }};
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Real-IP $remote_addr;
+    }
+}

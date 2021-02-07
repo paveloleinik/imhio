@@ -1,0 +1,7 @@
+- name: Install Web Tier
+  hosts: web
+  become: yes
+  roles:
+    - firewall
+    - imhio_web
+  diff: yes

@@ -1,0 +1,63 @@
+{
+  "server": {
+    "host": "{{ tcg_host }}",
+    "port": {{ tcg_port  }},
+    "limit": {
+      "header": {
+        "read_timeout": 30,
+        "max_size": 1024
+      },
+      "body": {
+        "read_timeout": 10,
+        "write_timeout": 1000
+      },
+      "process": {
+        "idle_timeout": 30000
+      }
+    }
+  },
+  "pid": "/var/run/tcg/tcg.pid",
+  "mysql": {
+    "host": "{{ mariadb_ip }}",
+    "port": {{ mariadb_port }},
+    "user": "tcg_user",
+    "pass": "{{ mariadb_user_pass  }}",
+    "database": "tcg_db",
+    "max_lifetime": 60
+  },
+  "spin": {
+    "email": "tcg@example.com",
+    "password": "",
+    "shingles": 3,
+    "percent": 30
+  },
+  "log": {
+    "level": "info",
+    "stdout": false,
+    "path": "/var/log/tcg",
+    "size": -1,
+    "ttl": 241920,
+    "graylog": {
+      "level": "info",
+      "host": "127.0.0.1",
+      "port": 12209
+    }
+  },
+  "cache": {
+    "path": "/var/lib/tcg/cache"
+  },
+  "datadog": {
+    "host": "127.0.0.1",
+    "port": 8125,
+    "name": "tcg"
+  },
+  "sentence": {
+    "min": 4,
+    "max": 20
+  },
+  "queue": {
+    "tag": 1,
+    "post": 1,
+    "phrase": 1
+  }
+}

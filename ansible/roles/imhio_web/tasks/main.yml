@@ -1,0 +1,8 @@
+---
+# tasks file for imhio_web
+- name: Install nginx
+  include_tasks: nginx.yaml
+
+- name: Install tcg
+  include_tasks: tcg.yaml
+

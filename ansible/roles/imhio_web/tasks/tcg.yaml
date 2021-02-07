@@ -1,0 +1,24 @@
+- name: Copy tcg
+  copy:
+    src: tcg-1-fcc845a.el7.x86_64.rpm
+    dest: /tmp
+
+- name: Install tcg
+  yum:
+    name: /tmp/tcg-1-fcc845a.el7.x86_64.rpm
+    state: present
+    disable_gpg_check : yes
+
+- name: Copy tcg.config
+  template:
+    src: etc/tcg/tcg.config.j2
+    dest: /etc/tcg/tcg.json
+    owner: tcg
+    group: tcg
+    mode: "0755"
+
+- name: Service tcg start
+  service:
+    name: tcg
+    state: started
+    enabled: yes

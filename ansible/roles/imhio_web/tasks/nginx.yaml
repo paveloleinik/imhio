@@ -1,0 +1,26 @@
+- name : Install nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: Copy site config tcg.conf
+  template:
+    src: etc/nginx/conf.d/tcg.j2
+    dest: /etc/nginx/conf.d/tcg.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Copy nginx.conf
+  copy:
+    src: etc/nginx/nginx.conf
+    dest: /etc/nginx/
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Service start
+  service:
+    name: nginx
+    state: started
+    enabled: yes

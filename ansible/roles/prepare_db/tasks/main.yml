@@ -1,0 +1,20 @@
+---
+# tasks file for firewall
+- name: Configure block device
+  parted:
+    device: /dev/{{ block_name }}
+    number: 1
+    state: present
+
+- name:
+  filesystem:
+    fstype: ext4
+    dev: /dev/{{ block_name }}1
+
+- name: Mount /dev/{{  block_name }}1 to /var/lib/mysql
+  mount:
+    path: /var/lib/mysql
+    src: /dev/{{ block_name }}1
+    fstype: ext4
+    state: mounted
+
