@@ -1,8 +1,8 @@
 # About
 Добрый день, меня зовут Павел Олейник
-До прошлой пятницы я никогда не работал с Terraform, поэтому я плохо знаком с best practices Terraform и мой код может быть не совсем чистый
-Проект Terraform находиться в каталоге Terraform
-Проект Ansible находиться в папке Ansible
+До прошлой пятницы я никогда не работал с Terraform, поэтому я плохо знаком с best practices Terraform и мой код может быть не совсем чистый (_например nameing ресурсов)
+Проект Terraform находиться в каталоге terraform
+Проект Ansible находиться в папке ansible
 
 # Terraform
 Инфраструктура развёрнута в облаке AWS. 
@@ -90,7 +90,7 @@ Playbook для настроки Web сервера в AWS, включает в 
 - Изменить переменную ssh_white_ip в variables.tf – указать публичный адрес с которого будет происходить подключение по SSH
 - Создать Key Pair в регионе где будет развернута инфраструктура
 - Изменить переменную key_name в variables.tf – указать название key-pair, созданный заранее, для подключения к instances 
-- После запуска playbook запросит access_key и secret_key. Необходимо ввести ключи от учетной записи имеющей права на создание объектов указанных выше. Либо указать export AWS_ACCESS_KEY_ID=”” и export AWS_SECRET_ACCESS_KEY=”” и закоментировать переменный в variables.tf
+- После запуска playbook запросит access_key ,secret_key , region. Необходимо ввести ключи от учетной записи имеющей права на создание объектов указанных выше. На Linux можно указать export AWS_ACCESS_KEY_ID=”” , export AWS_SECRET_ACCESS_KEY=””, export AWS_DEFAULT_REGION="" и закоментировать переменный в variables.tf. В случае смены региона (по умолчанию стоит us-east-2) так же нужно будет заменить переменную в ami в variables.tf
 
 - Регион по умолчанию us-east-2 , можно поменять в переменной region
 - Вы полнить команды для playbook Terraform:
@@ -98,12 +98,14 @@ Playbook для настроки Web сервера в AWS, включает в 
   `terraform init` 
   `terraform plan`
   `terraform apply`
-  
+  `Ввести access_key`
+  `Ввести region`
+  `Ввести secret_key`
   - Сохранить Key Pair указанный в переменной key_name в variables.tf в корень папки ansible
   
 ### Ansible
-Вы полнить команды для playbook Ansible:
-- Перед запуском плэйбуков необходимо сменить публичный в hosts/all.ini IP для web сервера, а так же подставить тот же ip в ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ec2-user@18.216.240.65 -i ./test.pem"' на свой.
+Выполнить команды для playbook Ansible:
+- Перед запуском плэйбуков необходимо сменить публичный IP в файле hosts/all.ini для Web сервера на публичный IP выданный для Web instance в облаке AWS при развертывание через Terraform .
 ```Yaml
 [web_hosts]
 web ansible_host=18.216.240.65
@@ -114,26 +116,26 @@ db ansible_host=10.0.2.200
 [db_hosts:vars]
 ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ec2-user@18.216.240.65 -i ./test.pem"'
 ```
-- заменить публичный IP в файле ssh.cfg для host Web и в параметре ProxyCommand, так же заменить ключ test.pem на свой
+- Заменить публичный IP в файле ssh.cfg для host Web в поле Hostname и в поле ProxyCommand для Host 10.0.2.200
+- Заменить в поле IdentityFile для обоих хостов ключ key.pem на название своего ключа
 ```Yaml
 Host web
   Hostname 18.216.240.65
   StrictHostKeyChecking no
   User ec2-user
-  IdentityFile ./test2.pem
+  IdentityFile ./key.pem
   ControlMaster auto
   ControlPersist 1m
   ControlMaster auto
   ControlPath ~/.ssh/ansible-%r@%h:%p
 
-Host 10.0.2.*
+Host 10.0.2.200
   StrictHostKeyChecking no
   User ec2-user
   ProxyCommand ssh -W %h:%p ec2-user@18.216.240.65
-  IdentityFile ./test.pem
+  IdentityFile ./key.pem
  ``` 
 
 - Для настройки DB хоста необходимо выполнить playbook db.yaml в каталоге Ansible ansible-playbook db.yaml
-- Необходимо поменять в файле hosts/all.ini пуличный IP адрес Web хоста созданный в AWS при развертывание через Terraform 
 - Для настройки Web хоста необходимо выполнить playbook web.yaml в каталоге Ansible ansible-playbook web.yaml
 
