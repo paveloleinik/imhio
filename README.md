@@ -98,6 +98,8 @@ Playbook для настроки Web сервера в AWS, включает в 
   `terraform plan`
   `terraform apply`
   
+  - Сохранить Key Pair указанный в переменной key_name в variables.tf в корень папки ansible
+  
 ### Ansible
 Вы полнить команды для playbook Ansible:
 - Перед запуском плэйбуков необходимо сменить публичный в hosts/all.ini IP для web сервера, а так же подставить тот же ip в ansible_ssh_common_args='-o ProxyCommand="ssh -W %h:%p -q ec2-user@18.216.240.65 -i ./test.pem"' на свой.
