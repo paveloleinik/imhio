@@ -4,8 +4,8 @@
 До прошедшей пятницы я не был знаком с Terraform, поэтому
 мой код может быть не совсем соответствовать best practices Terraform и быть не совсем чистый.
 
-- Проект Terraform находиться в каталоге terraform
-- Проект Ansible находиться в папке ansible
+- Проект Terraform находиться в каталоге terraform. Terraform version 0.14.6
+- Проект Ansible находиться в папке ansible. Ansible version 2.9.16
 ```
 
 # Terraform
