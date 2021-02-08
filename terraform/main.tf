@@ -3,3 +3,6 @@ provider "aws" {
   secret_key = var.secret_key
   region = var.region
 }
+
+data "aws_caller_identity" "current_id" {}
+data "aws_region" "current_region" {}

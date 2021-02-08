@@ -38,6 +38,10 @@ resource "aws_instance" "imhio_web_host" {
   tags = {
     Name = "imhio_web_host"
   }
+  depends_on = [aws_instance.imhio_db_host]
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 #--------------------------------------------------
@@ -59,5 +63,8 @@ resource "aws_instance" "imhio_db_host" {
   }
   tags = {
   Name = "imhio_db_host"
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
