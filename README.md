@@ -24,17 +24,17 @@
 
 #### outputs.tf
 
-web_public_ip - публичный IP Web сервера
-web_private_ip - приватный IP Web сервера
-db_private_IP - приватный IP DB сервера
-web_key_pair - имя ключа для по подключеня к Web inctance
-db_key_pair - имя ключа для по подключеня к DB inctance
-account_id - id AWS аккаунта в котором создается проект 
-vpc_id - id созданого VPC
-private_wb_cidr - cidr block приватной сети Web сервера 
-private_db_cidr - cidr block приватной сети DB сервера 
-web_sg_id - id security группы для Web сервера
-db_sg_id - id security группы для DB сервера
+-	web_public_ip - публичный IP Web сервера
+-	web_private_ip - приватный IP Web сервера
+-	db_private_IP - приватный IP DB сервера
+-	web_key_pair - имя ключа для по подключеня к Web inctance
+-	db_key_pair - имя ключа для по подключеня к DB inctance
+-	account_id - id AWS аккаунта в котором создается проект 
+-	vpc_id - id созданого VPC
+-	private_wb_cidr - cidr block приватной сети Web сервера 
+-	private_db_cidr - cidr block приватной сети DB сервера 
+-	web_sg_id - id security группы для Web сервера
+-	db_sg_id - id security группы для DB сервера
 
 
 #### ec2.tf
