@@ -10,10 +10,39 @@
 
 # Terraform
 Инфраструктура развёрнута в облаке AWS. 
-#### Структура проекта:
--	imhio.tf
+### Структура проекта:
+-	main.tf
 -	variables.tf
-#### Для создания инфраструктуры необходим пользователь с правами на создание:
+-	outputs.tf
+-	ec2.tf
+-	vpc.tf
+
+#### main.tf
+Основный настройки playbook
+#### variables.tf
+Переменные для playbook
+
+#### outputs.tf
+
+web_public_ip - публичный IP Web сервера
+web_private_ip - приватный IP Web сервера
+db_private_IP - приватный IP DB сервера
+web_key_pair - имя ключа для по подключеня к Web inctance
+db_key_pair - имя ключа для по подключеня к DB inctance
+account_id - id AWS аккаунта в котором создается проект 
+vpc_id - id созданого VPC
+private_wb_cidr - cidr block приватной сети Web сервера 
+private_db_cidr - cidr block приватной сети DB сервера 
+web_sg_id - id security группы для Web сервера
+db_sg_id - id security группы для DB сервера
+
+
+#### ec2.tf
+Настройки EC и связаннх объектов
+#### vpc.tf
+Настройки VPC и связаннх объектов
+
+### Для создания инфраструктуры необходим пользователь с правами на создание:
 - VPC
 - Subnets
 - Internet Gateway
@@ -94,13 +123,12 @@ Playbook для настроки Web сервера в AWS, включает в 
 - Изменить переменную ssh_white_ip в variables.tf – указать публичный адрес с которого будет происходить подключение по SSH
 - Создать Key Pair в регионе где будет развернута инфраструктура
 - Изменить переменную key_name в variables.tf – указать название key-pair, созданный заранее, для подключения к instances 
-- После запуска playbook запросит access_key ,secret_key , region. Необходимо ввести ключи от учетной записи имеющей права на создание объектов указанных выше. На Linux можно указать export AWS_ACCESS_KEY_ID=”” , export AWS_SECRET_ACCESS_KEY=””, export AWS_DEFAULT_REGION="" и закоментировать переменный в variables.tf. В случае смены региона (по умолчанию стоит us-east-2) так же нужно будет заменить переменную в ami в variables.tf
+- После запуска Terraform запросит access_key ,secret_key , region. Необходимо ввести ключи от учетной записи имеющей права на создание объектов указанных выше. На Linux можно указать export AWS_ACCESS_KEY_ID=”” , export AWS_SECRET_ACCESS_KEY=””, export AWS_DEFAULT_REGION="" и закоментировать переменный в variables.tf. В случае смены региона (по умолчанию стоит us-east-2) так же нужно будет заменить переменную в ami в variables.tf
 
 - Регион по умолчанию us-east-2 , можно поменять в переменной region
 - Вы полнить команды для playbook Terraform:
   :--- 
   `terraform init` 
-  `terraform plan`
   `terraform apply`
   `Ввести access_key`
   `Ввести region`
